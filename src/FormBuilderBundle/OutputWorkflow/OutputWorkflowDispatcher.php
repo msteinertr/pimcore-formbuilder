@@ -32,6 +32,7 @@ class OutputWorkflowDispatcher implements OutputWorkflowDispatcherInterface
         $exceptionStack = [];
         foreach ($outputWorkflow->getChannels() as $index => $channel) {
             try {
+                setlocale(LC_ALL, 'C');
                 $channelProcessor = $this->channelRegistry->get($channel->getType());
                 $channelProcessor->dispatchOutputProcessing($submissionEvent, $outputWorkflow->getName(), $channel->getConfiguration());
             } catch (GuardChannelException $e) {
